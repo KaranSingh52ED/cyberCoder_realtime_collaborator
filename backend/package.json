@@ -5,8 +5,8 @@
 	"main": "dist/server.js",
 	"scripts": {
 		"dev": "nodemon --exec ts-node src/server.ts",
-		"start": "sudo node dist/server.js",
-		"build": "npm install && tsc"
+		"start": "node dist/server.js",
+		"build": "tsc"
 	},
 	"keywords": [],
 	"author": "",
