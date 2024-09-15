@@ -98,7 +98,7 @@ const FormComponent = () => {
     ])
 
     return (
-        <div className="flex w-full max-w-[500px] flex-col items-center justify-center gap-8 rounded-2xl bg-green-100 p-4 shadow-inner shadow-blue-400 ring-2 ring-white sm:w-[500px] sm:p-8">
+        <div className="flex w-full max-w-[500px] flex-col items-center justify-center gap-8 rounded-2xl bg-gray-500 p-4 shadow-inner shadow-blue-400 ring-2 ring-white sm:w-[500px] sm:p-8">
             <div className="flex items-center justify-between gap-10 sm:gap-6">
                 <img
                     src={logo}
