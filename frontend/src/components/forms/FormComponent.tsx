@@ -135,11 +135,12 @@ const FormComponent = () => {
                         targetElement.classList.add("animate-rotateAndLeave")
                     }}
                 >
-                    Join
+                    Join Room
                 </button>
             </form>
             <button
-                className="cursor-pointer select-none font-serif text-blue-500 underline transition duration-1000 hover:scale-110 hover:text-black"
+                className="cursor-pointer select-none rounded-sm bg-white
+                 p-2 font-serif text-blue-500 underline shadow-md shadow-slate-200 ring-1 ring-black transition duration-1000 hover:scale-110 hover:text-black hover:ring-green-800"
                 onClick={createNewRoomId}
             >
                 Generate Unique Room Id
