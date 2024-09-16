@@ -1,9 +1,12 @@
 INTER IIT Software Guild Hackathon
 
 ## CONTRIBUTOR
-________________________________________
+
+---
+
 KARAN SINGH (ED22B052) ONLY ## SELF ##
-________________________________________
+
+---
 
 ## Features
 
@@ -43,7 +46,7 @@ ________________________________________
    Frontend:
 
    ```bash
-   VITE_BACKEND_URL=<your_server_url> like    http://localhost:3000
+   VITE_BACKEND_URL=<your_server_url> like  VITE_BACKEND_URL= http://localhost:3000
    ```
 
    Backend:
