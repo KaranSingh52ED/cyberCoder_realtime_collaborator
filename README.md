@@ -1,5 +1,9 @@
 ## Features
 
+## Drive Link https://drive.google.com/file/d/1Q7dGcbu7R3pMUjjmPUtMtUk-LrNxRHqB/view?usp=sharing
+
+## Deployed Link https://cyber-coder-realtime-collaborator.vercel.app/
+
 💻 Real-time collaboration on code editing across multiple files
 🚀 Unique room generation with room ID for collaboration
 🌍 Comprehensive language support for versatile programming
@@ -32,7 +36,7 @@
    Frontend:
 
    ```bash
-   VITE_BACKEND_URL=<your_server_url>
+   VITE_BACKEND_URL=<your_server_url> like localhost:3000
    ```
 
    Backend:
