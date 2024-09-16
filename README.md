@@ -1,6 +1,6 @@
 INTER IIT Software Guild Hackathon
 
-CONTRIBUTOR
+## CONTRIBUTOR
 ________________________________________
 KARAN SINGH (ED22B052) ONLY ## SELF ##
 ________________________________________
@@ -30,7 +30,7 @@ ________________________________________
 
 ## ⚙️ Installation
 
-1. **Fork this repository:** Click the Fork button located in the top-right corner of this page to fork the repository.
+1. **Fork this repository:** Click the Fork button located in the top-right corner of this page to fork the repository. or
 2. **Clone the repository:**
 
    ```bash
@@ -38,7 +38,7 @@ ________________________________________
    ```
 
 3. **Set .env file:**
-   Inside the client and server directories rename the `.env.example` file to `.env` and set the following environment variables:
+   Inside the client and server directories create the `.env` files and set the following environment variables:
 
    Frontend:
 
@@ -60,12 +60,12 @@ ________________________________________
 5. **Start the frontend and backend servers:**  
    Frontend:
    ```bash
-   cd client
+   cd frontend
    npm run dev
    ```
    Backend:
    ```bash
-   cd server
+   cd backend
    npm run dev
    ```
 6. **Access the application:**
