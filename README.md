@@ -36,7 +36,7 @@
    Frontend:
 
    ```bash
-   VITE_BACKEND_URL=<your_server_url> like localhost:3000
+   VITE_BACKEND_URL=<your_server_url> like    http://localhost:3000
    ```
 
    Backend:
