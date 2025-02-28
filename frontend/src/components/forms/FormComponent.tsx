@@ -98,52 +98,49 @@ const FormComponent = () => {
     ])
 
     return (
-        <div className="flex w-full max-w-[500px] flex-col items-center justify-center gap-8 rounded-2xl bg-gray-500 p-4 shadow-inner shadow-blue-400 ring-2 ring-white sm:w-[500px] sm:p-8">
-            <div className="flex items-center justify-between gap-10 sm:gap-6">
+        <div className="flex w-full max-w-[90vw] flex-col items-center justify-center gap-6 rounded-[2rem] bg-gradient-to-r from-gray-800 to-gray-900 p-6 shadow-xl ring-2 ring-gray-600/50 backdrop-blur-lg sm:p-8 md:max-w-2xl md:rounded-[2.5rem] md:p-10 lg:max-w-4xl lg:gap-8 lg:p-12 xl:max-w-6xl">
+            <div className="@container flex w-full flex-col items-center gap-4 sm:gap-6 md:flex-row md:justify-between">
                 <img
                     src={logo}
-                    alt="Logo"
-                    className="h-24 rounded-3xl object-cover"
+                    alt="CyberCode Logo"
+                    className="aspect-square h-[clamp(4rem,10vw,6rem)] w-auto rounded-full object-cover shadow-lg ring-2 ring-blue-400/80 transition-all duration-300 hover:ring-blue-300"
                 />
-                <h1 className="font-serif text-[3rem] text-black md:text-[4rem]">
+                <h1 className="bg-gradient-to-r from-blue-300 to-cyan-400 bg-clip-text text-[clamp(1.75rem,5vw,3rem)] font-extrabold leading-tight text-transparent">
                     CyberCode
                 </h1>
             </div>
-            <form onSubmit={joinRoom} className="flex w-full flex-col gap-4">
+
+            <form onSubmit={joinRoom} className="w-full space-y-4 sm:space-y-6">
                 <input
                     type="text"
                     name="roomId"
-                    placeholder="Room Id"
-                    className="border-inner w-full rounded-md border border-blue-500 bg-darkHover px-3 py-3 shadow-inner shadow-black transition duration-1000 hover:scale-95 focus:outline-none"
+                    placeholder="Enter Room ID"
+                    className="w-full rounded-xl border-2 border-blue-400/20 bg-gray-700/90 px-4 py-3 text-base backdrop-blur-sm transition-all placeholder:text-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-300/50 sm:text-lg md:py-4 lg:text-xl"
                     onChange={handleInputChanges}
                     value={currentUser.roomId}
                 />
                 <input
                     type="text"
                     name="username"
-                    placeholder="Username"
-                    className="border-inner w-full rounded-md border border-blue-500 bg-darkHover px-3 py-3 shadow-inner shadow-black transition duration-1000 hover:scale-95 focus:outline-none"
+                    placeholder="Enter Username"
+                    className="w-full rounded-xl border-2 border-blue-400/20 bg-gray-700/90 px-4 py-3 text-base backdrop-blur-sm transition-all placeholder:text-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-300/50 sm:text-lg md:py-4 lg:text-xl"
                     onChange={handleInputChanges}
                     value={currentUser.username}
                     ref={usernameRef}
                 />
                 <button
                     type="submit"
-                    className="mt-2 w-full rounded-md bg-primary px-8 py-3 text-lg font-semibold text-black shadow-black transition duration-1000 hover:scale-95 hover:shadow-black hover:ring-2 hover:ring-green-800 focus:outline-none"
-                    onClick={(e) => {
-                        const targetElement = e.target as HTMLElement
-                        targetElement.classList.add("animate-rotateAndLeave")
-                    }}
+                    className="w-full rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 py-3 text-lg font-semibold shadow-lg ring-white/20 transition-all duration-200 hover:scale-[1.02] hover:shadow-xl focus:scale-100 focus:ring-2 sm:py-4 md:text-xl"
                 >
                     Join Room
                 </button>
             </form>
+
             <button
-                className="cursor-pointer select-none rounded-sm bg-white
-                 p-2 font-serif text-blue-500 underline shadow-md shadow-slate-200 ring-1 ring-black transition duration-1000 hover:scale-110 hover:text-black hover:ring-green-800"
+                className="w-full rounded-xl bg-gray-100/90 py-3 text-base font-medium text-blue-700 shadow-md ring-blue-400/50 transition-all hover:bg-gray-200 hover:text-blue-800 hover:shadow-lg focus:ring-2 sm:text-lg md:py-4 md:text-xl"
                 onClick={createNewRoomId}
             >
-                Generate Unique Room Id
+                Generate Unique Room ID
             </button>
         </div>
     )

@@ -21,20 +21,6 @@ body {
     --sb-size: 6px;
 }
 
-@keyframes rotateAndLeave {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    50% {
-        transform: rotate(360deg);
-    }
-
-    100% {
-        transform: translateX(100vw) rotate(45deg);
-    }
-}
-
 ::-webkit-scrollbar {
     width: var(--sb-size);
     height: var(--sb-size);
@@ -104,7 +90,6 @@ select {
 }
 
 @keyframes octocat-wave {
-
     0%,
     100% {
         transform: rotate(0);
