@@ -1,78 +1,87 @@
-INTER IIT Software Guild Hackathon
+# INTER IIT Software Guild Hackathon
 
-## CONTRIBUTOR
+## Contributor
+
+---
+**Karan Singh (ED22B052)**  
+_Sole Contributor_
 
 ---
 
-KARAN SINGH (ED22B052) ONLY ## SELF ##
+## Project Overview
+This project is a real-time collaborative code editor designed for seamless teamwork and efficient coding workflows. It provides an interactive environment where multiple users can collaborate on code files in real time.
+
+### 🔗 Useful Links
+- **Drive Link:** [Project Documentation](https://drive.google.com/file/d/1Q7dGcbu7R3pMUjjmPUtMtUk-LrNxRHqB/view?usp=sharing)
+- **Deployed Application:** [Live Demo](https://cyber-coder-realtime-collaborator.vercel.app/)
+
+## ✨ Features
+- 💻 **Real-Time Collaboration**: Edit code simultaneously across multiple files.
+- 🚀 **Unique Room Generation**: Each session has a unique room ID for secure collaboration.
+- 🌍 **Multi-Language Support**: Code in various programming languages.
+- 🌈 **Syntax Highlighting**: Auto-detects language and applies appropriate syntax highlighting.
+- 🚀 **Code Execution**: Execute code within the collaboration environment for instant feedback.
+- ⏱️ **Instant Synchronization**: Live updates across all files and folders.
+- 📁 **File Management**: Create, open, edit, save, delete, and organize files and folders.
+- 💾 **Downloadable Codebase**: Download the entire project as a ZIP file.
+- 📣 **User Notifications**: Receive alerts when users join or leave a session.
+- 💡 **Smart Auto-Suggestions**: Context-based suggestions to enhance coding efficiency.
+- 🔠 **Customizable Editor**: Change font size and font family for a personalized experience.
+- 👥 **User Presence Tracking**: View active users with online/offline indicators.
+- 💬 **Integrated Chat**: Communicate with team members while coding.
+- 🎩 **User Activity Tooltip**: See who is currently editing a specific file.
+- 🎨 **Theming Options**: Multiple themes for a tailored coding experience.
+- ✏️ **Collaborative Drawing**: Draw and sketch in real time to enhance interactivity.
+
+## ⚙️ Installation Guide
+Follow these steps to set up the project on your local machine:
+
+### 1️⃣ Fork or Clone the Repository
+Fork the repository or clone it using:
+```bash
+https://github.com/KaranSingh52ED/cyberCoder_realtime_collaborator.git
+```
+
+### 2️⃣ Configure Environment Variables
+Create a `.env` file inside both the `client` and `server` directories and set the following variables:
+
+#### Frontend (`client/.env`):
+```bash
+VITE_BACKEND_URL=<your_server_url>  # Example: http://localhost:3000
+```
+
+#### Backend (`server/.env`):
+```bash
+PORT=3000
+```
+
+### 3️⃣ Install Dependencies
+Navigate to the respective directories and install the required packages:
+```bash
+npm install
+```
+
+### 4️⃣ Run the Application
+Start both frontend and backend servers:
+
+#### Frontend:
+```bash
+cd frontend
+npm run dev
+```
+
+#### Backend:
+```bash
+cd backend
+npm run dev
+```
+
+### 5️⃣ Access the Application
+Once the servers are running, open your browser and navigate to:
+```bash
+http://localhost:5173/
+```
 
 ---
+This documentation provides all necessary details to set up and use the collaborative coding platform efficiently. Happy coding! 🚀
 
-## Features
-
-## Drive Link https://drive.google.com/file/d/1Q7dGcbu7R3pMUjjmPUtMtUk-LrNxRHqB/view?usp=sharing
-
-## Deployed Link https://cyber-coder-realtime-collaborator.vercel.app/
-
-💻 Real-time collaboration on code editing across multiple files
-🚀 Unique room generation with room ID for collaboration
-🌍 Comprehensive language support for versatile programming
-🌈 Syntax highlighting for various file types with auto-language detection
-🚀 Code Execution: Users can execute the code directly within the collaboration environment, providing instant feedback and results.
-⏱️ Instant updates and synchronization of code changes across all files and folders
-📁 Create, open, edit, save, delete, and organize files and folders
-💾 Option to download the entire codebase as a zip file
-📣 Notifications for user join and leave events
-💡 Auto suggestion based on programming language
-🔠 Option to change font size and font family
-👥 User presence list of users currently in the collaboration session, including online/offline status indicators
-💬 Group chatting allows users to communicate in real-time while working on code.
-🎩 Real-time tooltip displaying users currently editing
-🎨 Multiple themes for personalized coding experience
-🎨 Collaborative Drawing: Enable users to draw and sketch collaboratively in real-time, enhancing the interactive experience of your project.
-
-## ⚙️ Installation
-
-1. **Fork this repository:** Click the Fork button located in the top-right corner of this page to fork the repository. or
-2. **Clone the repository:**
-
-   ```bash
-   https://github.com/KaranSingh52ED/cyberCoder_realtime_collaborator.git
-   ```
-
-3. **Set .env file:**
-   Inside the client and server directories create the `.env` files and set the following environment variables:
-
-   Frontend:
-
-   ```bash
-   VITE_BACKEND_URL=<your_server_url> like  VITE_BACKEND_URL= http://localhost:3000
-   ```
-
-   Backend:
-
-   ```bash
-   PORT=3000
-   ```
-
-4. **Install dependencies:**
-   Navigate to the frontend and backend directories separately and run:
-   ```bash
-    npm install
-   ```
-5. **Start the frontend and backend servers:**  
-   Frontend:
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-   Backend:
-   ```bash
-   cd backend
-   npm run dev
-   ```
-6. **Access the application:**
-   Open a browser and enter the following URL:
-   ```bash
-   http://localhost:5173/
-   ```
