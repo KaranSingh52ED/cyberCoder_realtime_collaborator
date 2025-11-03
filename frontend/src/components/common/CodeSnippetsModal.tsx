@@ -1,6 +1,7 @@
 import { useFileSystem } from '@/context/FileContext'
 import { useState, useEffect } from 'react'
-import { HiX, HiSparkles } from 'react-icons/hi2'
+import { HiSparkles } from 'react-icons/hi2'
+import { IoClose } from 'react-icons/io5'
 import { toast } from 'react-hot-toast'
 
 interface CodeSnippetsModalProps {
@@ -181,7 +182,7 @@ function CodeSnippetsModal({ isOpen, onClose }: CodeSnippetsModalProps) {
                         onClick={onClose}
                         className="rounded-lg p-2 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
                     >
-                        <HiX className="h-5 w-5" />
+                        <IoClose className="h-5 w-5" />
                     </button>
                 </div>
 

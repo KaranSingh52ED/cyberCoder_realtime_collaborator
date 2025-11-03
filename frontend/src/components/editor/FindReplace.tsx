@@ -2,8 +2,8 @@ import { useFileSystem } from '@/context/FileContext'
 import { useSocket } from '@/context/SocketContext'
 import { SocketEvent } from '@/types/socket'
 import { useState, useEffect } from 'react'
-import { HiX, HiMagnifyingGlass, HiArrowPath } from 'react-icons/hi2'
-import { HiOutlineArrowsExpand, HiOutlineArrowsShrink } from 'react-icons/hi'
+import { HiMagnifyingGlass, HiArrowPath } from 'react-icons/hi2'
+import { IoClose, IoChevronDown, IoChevronUp } from 'react-icons/io5'
 
 interface FindReplaceProps {
     onClose: () => void
@@ -94,16 +94,16 @@ function FindReplace({ onClose, onFind, onReplace, onReplaceAll }: FindReplacePr
                         title={isExpanded ? 'Collapse' : 'Expand'}
                     >
                         {isExpanded ? (
-                            <HiOutlineArrowsShrink className="h-4 w-4" />
+                            <IoChevronUp className="h-4 w-4" />
                         ) : (
-                            <HiOutlineArrowsExpand className="h-4 w-4" />
+                            <IoChevronDown className="h-4 w-4" />
                         )}
                     </button>
                     <button
                         onClick={onClose}
                         className="rounded p-1 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
                     >
-                        <HiX className="h-4 w-4" />
+                        <IoClose className="h-4 w-4" />
                     </button>
                 </div>
             </div>
