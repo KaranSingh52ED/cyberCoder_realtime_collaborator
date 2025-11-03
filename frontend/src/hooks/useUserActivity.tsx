@@ -1,17 +1,16 @@
-import { useAppContext } from "@/context/AppContext"
-import { useSocket } from "@/context/SocketContext"
-import { SocketEvent, SocketId } from "@/types/socket"
-import { RemoteUser, USER_CONNECTION_STATUS } from "@/types/user"
-import { useCallback, useEffect } from "react"
+import { useAppContext } from '@/context/AppContext'
+import { useSocket } from '@/context/SocketContext'
+import { SocketEvent, SocketId } from '@/types/socket'
+import { RemoteUser, USER_CONNECTION_STATUS } from '@/types/user'
+import { useCallback, useEffect } from 'react'
 
 function useUserActivity() {
     const { setUsers } = useAppContext()
     const { socket } = useSocket()
 
     const handleUserVisibilityChange = useCallback(() => {
-        if (document.visibilityState === "visible")
-            socket.emit(SocketEvent.USER_ONLINE, { socketId: socket.id })
-        else if (document.visibilityState === "hidden") {
+        if (document.visibilityState === 'visible') socket.emit(SocketEvent.USER_ONLINE, { socketId: socket.id })
+        else if (document.visibilityState === 'hidden') {
             socket.emit(SocketEvent.USER_OFFLINE, { socketId: socket.id })
         }
     }, [socket])
@@ -65,10 +64,7 @@ function useUserActivity() {
     )
 
     useEffect(() => {
-        document.addEventListener(
-            "visibilitychange",
-            handleUserVisibilityChange,
-        )
+        document.addEventListener('visibilitychange', handleUserVisibilityChange)
 
         socket.on(SocketEvent.USER_ONLINE, handleUserOnline)
         socket.on(SocketEvent.USER_OFFLINE, handleUserOffline)
@@ -76,24 +72,14 @@ function useUserActivity() {
         socket.on(SocketEvent.TYPING_PAUSE, handleUserTyping)
 
         return () => {
-            document.removeEventListener(
-                "visibilitychange",
-                handleUserVisibilityChange,
-            )
+            document.removeEventListener('visibilitychange', handleUserVisibilityChange)
 
             socket.off(SocketEvent.USER_ONLINE)
             socket.off(SocketEvent.USER_OFFLINE)
             socket.off(SocketEvent.TYPING_START)
             socket.off(SocketEvent.TYPING_PAUSE)
         }
-    }, [
-        socket,
-        setUsers,
-        handleUserVisibilityChange,
-        handleUserOnline,
-        handleUserOffline,
-        handleUserTyping,
-    ])
+    }, [socket, setUsers, handleUserVisibilityChange, handleUserOnline, handleUserOffline, handleUserTyping])
 }
 
 export default useUserActivity

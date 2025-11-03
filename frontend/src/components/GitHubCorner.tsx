@@ -1,5 +1,5 @@
-import { useSettings } from "@/context/SettingContext"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
+import { useSettings } from '@/context/SettingContext'
+import useWindowDimensions from '@/hooks/useWindowDimensions'
 
 function GitHubCorner() {
     const { showGitHubCorner } = useSettings()
@@ -13,7 +13,7 @@ function GitHubCorner() {
             target="_blank"
             rel="noreferrer"
             style={{
-                display: showGitHubCorner && width > 640 ? "block" : "none",
+                display: showGitHubCorner && width > 640 ? 'block' : 'none',
             }}
         >
             <svg
@@ -23,21 +23,21 @@ function GitHubCorner() {
                 className="absolute right-0 top-0 z-10 border-none bg-primary text-gray-700 dark:text-gray-100"
                 aria-hidden="true"
                 style={{
-                    color: "#151513",
-                    transform: "rotate(45deg) translate(12%,-80%) scale(0.8)",
+                    color: '#151513',
+                    transform: 'rotate(45deg) translate(12%,-80%) scale(0.8)',
                 }}
             >
                 <g
                     style={{
-                        transform: "rotate(-45deg) translate(0%,50%)",
-                        transformOrigin: "bottom",
+                        transform: 'rotate(-45deg) translate(0%, 50%)',
+                        transformOrigin: 'bottom',
                     }}
                 >
                     <path
                         d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
                         fill="currentColor"
                         style={{
-                            transformOrigin: "130px 106px",
+                            transformOrigin: '130px 106px',
                         }}
                         className="octo-arm"
                     ></path>

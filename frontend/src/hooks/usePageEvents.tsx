@@ -1,5 +1,5 @@
-import { useSettings } from "@/context/SettingContext"
-import { useEffect } from "react"
+import { useSettings } from '@/context/SettingContext'
+import { useEffect } from 'react'
 
 function usePageEvents() {
     const { fontSize, setFontSize } = useSettings()
@@ -7,14 +7,14 @@ function usePageEvents() {
     useEffect(() => {
         // Prevent user from leaving the page
         const beforeUnloadHandler = (e: any) => {
-            const msg = "Changes you made may not be saved"
+            const msg = 'Changes you made may not be saved'
             return (e.returnValue = msg)
         }
 
-        window.addEventListener("beforeunload", beforeUnloadHandler)
+        window.addEventListener('beforeunload', beforeUnloadHandler)
 
         return () => {
-            window.removeEventListener("beforeunload", beforeUnloadHandler)
+            window.removeEventListener('beforeunload', beforeUnloadHandler)
         }
     }, [])
 
@@ -23,7 +23,7 @@ function usePageEvents() {
             if (e.ctrlKey) {
                 // Prevent default browser zoom behavior
                 e.preventDefault()
-                if (!e.target.closest(".cm-editor")) return
+                if (!e.target.closest('.cm-editor')) return
                 if (e.deltaY > 0) {
                     setFontSize(Math.max(fontSize - 1, 12))
                 } else {
@@ -32,10 +32,10 @@ function usePageEvents() {
             }
         }
 
-        window.addEventListener("wheel", handleWheel, { passive: false })
+        window.addEventListener('wheel', handleWheel, { passive: false })
 
         return () => {
-            window.removeEventListener("wheel", handleWheel)
+            window.removeEventListener('wheel', handleWheel)
         }
     }, [fontSize, setFontSize])
 }

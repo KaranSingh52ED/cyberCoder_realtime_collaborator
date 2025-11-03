@@ -7,7 +7,8 @@
         "dev": "vite",
         "build": "vite build",
         "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "format": "prettier --write ."
     },
     "dependencies": {
         "@uiw/codemirror-extensions-color": "^4.21.21",
@@ -21,7 +22,7 @@
         "file-saver": "^2.0.5",
         "jszip": "^3.10.1",
         "lang-map": "^0.4.0",
-        "npm": "^11.1.0",
+        "npm": "^11.6.2",
         "react": "^18.2.0",
         "react-avatar": "^5.0.3",
         "react-dom": "^18.2.0",
@@ -51,7 +52,7 @@
         "eslint-plugin-react-hooks": "^4.6.2",
         "eslint-plugin-react-refresh": "^0.4.5",
         "postcss": "^8.4.35",
-        "prettier": "^3.2.4",
+        "prettier": "^3.6.2",
         "prettier-plugin-tailwindcss": "^0.5.11",
         "tailwindcss": "^3.4.1",
         "ts-node": "^10.9.2",

@@ -1,20 +1,15 @@
-import { useAppContext } from "@/context/AppContext"
-import { useSocket } from "@/context/SocketContext"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
-import { SocketEvent } from "@/types/socket"
-import { useCallback, useEffect } from "react"
-import { HistoryEntry, RecordsDiff, TLRecord, Tldraw, useEditor } from "tldraw"
+import { useAppContext } from '@/context/AppContext'
+import { useSocket } from '@/context/SocketContext'
+import useWindowDimensions from '@/hooks/useWindowDimensions'
+import { SocketEvent } from '@/types/socket'
+import { useCallback, useEffect } from 'react'
+import { HistoryEntry, RecordsDiff, TLRecord, Tldraw, useEditor } from 'tldraw'
 
 function DrawingEditor() {
     const { isMobile } = useWindowDimensions()
 
     return (
-        <Tldraw
-            inferDarkMode
-            forceMobile={isMobile}
-            defaultName="Editor"
-            className="z-0"
-        >
+        <Tldraw inferDarkMode forceMobile={isMobile} defaultName="Editor" className="z-0">
             <ReachEditor />
         </Tldraw>
     )
@@ -67,8 +62,8 @@ function ReachEditor() {
 
     useEffect(() => {
         const cleanupFunction = editor.store.listen(handleChangeEvent, {
-            source: "user",
-            scope: "document",
+            source: 'user',
+            scope: 'document',
         })
         // Listen for drawing updates from other clients
         socket.on(SocketEvent.DRAWING_UPDATE, handleRemoteDrawing)
@@ -78,13 +73,7 @@ function ReachEditor() {
             cleanupFunction()
             socket.off(SocketEvent.DRAWING_UPDATE)
         }
-    }, [
-        drawingData,
-        editor.store,
-        handleChangeEvent,
-        handleRemoteDrawing,
-        socket,
-    ])
+    }, [drawingData, editor.store, handleChangeEvent, handleRemoteDrawing, socket])
 
     return null
 }

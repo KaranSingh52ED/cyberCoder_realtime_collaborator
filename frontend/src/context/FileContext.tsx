@@ -1,39 +1,21 @@
-import {
-    FileContent,
-    FileContext as FileContextType,
-    FileName,
-    FileSystemItem,
-    Id,
-} from "@/types/file"
-import { SocketEvent } from "@/types/socket"
-import { RemoteUser } from "@/types/user"
-import {
-    findParentDirectory,
-    getFileById,
-    initialFileStructure,
-    isFileExist,
-} from "@/utils/file"
-import { saveAs } from "file-saver"
-import JSZip from "jszip"
-import {
-    ReactNode,
-    createContext,
-    useCallback,
-    useContext,
-    useEffect,
-    useState,
-} from "react"
-import { toast } from "react-hot-toast"
-import { v4 as uuidv4 } from "uuid"
-import { useAppContext } from "./AppContext"
-import { useSocket } from "./SocketContext"
+import { FileContent, FileContext as FileContextType, FileName, FileSystemItem, Id } from '@/types/file'
+import { SocketEvent } from '@/types/socket'
+import { RemoteUser } from '@/types/user'
+import { findParentDirectory, getFileById, initialFileStructure, isFileExist } from '@/utils/file'
+import { saveAs } from 'file-saver'
+import JSZip from 'jszip'
+import { ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
+import { v4 as uuidv4 } from 'uuid'
+import { useAppContext } from './AppContext'
+import { useSocket } from './SocketContext'
 
 const FileContext = createContext<FileContextType | null>(null)
 
 export const useFileSystem = (): FileContextType => {
     const context = useContext(FileContext)
     if (!context) {
-        throw new Error("useFileSystem must be used within FileContextProvider")
+        throw new Error('useFileSystem must be used within FileContextProvider')
     }
     return context
 }
@@ -42,16 +24,10 @@ function FileContextProvider({ children }: { children: ReactNode }) {
     const { socket } = useSocket()
     const { setUsers, drawingData } = useAppContext()
 
-    const [fileStructure, setFileStructure] =
-        useState<FileSystemItem>(initialFileStructure)
-    const initialOpenFiles = fileStructure.children
-        ? fileStructure.children
-        : []
-    const [openFiles, setOpenFiles] =
-        useState<FileSystemItem[]>(initialOpenFiles)
-    const [activeFile, setActiveFile] = useState<FileSystemItem | null>(
-        openFiles[0],
-    )
+    const [fileStructure, setFileStructure] = useState<FileSystemItem>(initialFileStructure)
+    const initialOpenFiles = fileStructure.children ? fileStructure.children : []
+    const [openFiles, setOpenFiles] = useState<FileSystemItem[]>(initialOpenFiles)
+    const [activeFile, setActiveFile] = useState<FileSystemItem | null>(openFiles[0])
 
     // Function to toggle the isOpen property of a directory (Directory Open/Close)
     const toggleDirectory = (dirId: Id) => {
@@ -88,17 +64,13 @@ function FileContextProvider({ children }: { children: ReactNode }) {
     }
 
     const createDirectory = useCallback(
-        (
-            parentDirId: string,
-            newDir: string | FileSystemItem,
-            sendToSocket: boolean = true,
-        ) => {
+        (parentDirId: string, newDir: string | FileSystemItem, sendToSocket: boolean = true) => {
             let newDirectory: FileSystemItem
-            if (typeof newDir === "string") {
+            if (typeof newDir === 'string') {
                 newDirectory = {
                     id: uuidv4(),
                     name: newDir,
-                    type: "directory",
+                    type: 'directory',
                     children: [],
                     isOpen: false,
                 }
@@ -108,9 +80,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
 
             if (!parentDirId) parentDirId = fileStructure.id
 
-            const addDirectoryToParent = (
-                directory: FileSystemItem,
-            ): FileSystemItem => {
+            const addDirectoryToParent = (directory: FileSystemItem): FileSystemItem => {
                 if (directory.id === parentDirId) {
                     // If the current directory matches the parent, add new directory to its children
                     return {
@@ -129,9 +99,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
                 }
             }
 
-            setFileStructure((prevFileStructure) =>
-                addDirectoryToParent(prevFileStructure),
-            )
+            setFileStructure((prevFileStructure) => addDirectoryToParent(prevFileStructure))
 
             if (!sendToSocket) return newDirectory.id
             socket.emit(SocketEvent.DIRECTORY_CREATED, {
@@ -145,16 +113,10 @@ function FileContextProvider({ children }: { children: ReactNode }) {
     )
 
     const updateDirectory = useCallback(
-        (
-            dirId: string,
-            children: FileSystemItem[],
-            sendToSocket: boolean = true,
-        ) => {
+        (dirId: string, children: FileSystemItem[], sendToSocket: boolean = true) => {
             if (!dirId) dirId = fileStructure.id
 
-            const updateChildren = (
-                directory: FileSystemItem,
-            ): FileSystemItem => {
+            const updateChildren = (directory: FileSystemItem): FileSystemItem => {
                 if (directory.id === dirId) {
                     return {
                         ...directory,
@@ -170,9 +132,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
                 }
             }
 
-            setFileStructure((prevFileStructure) =>
-                updateChildren(prevFileStructure),
-            )
+            setFileStructure((prevFileStructure) => updateChildren(prevFileStructure))
 
             // Close all open files in the directory being updated
             setOpenFiles([])
@@ -182,7 +142,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
 
             if (dirId === fileStructure.id) {
                 toast.dismiss()
-                toast.success("Files and folders updated")
+                toast.success('Files and folders updated')
             }
 
             if (!sendToSocket) return
@@ -195,21 +155,12 @@ function FileContextProvider({ children }: { children: ReactNode }) {
     )
 
     const renameDirectory = useCallback(
-        (
-            dirId: string,
-            newDirName: string,
-            sendToSocket: boolean = true,
-        ): boolean => {
-            const renameInDirectory = (
-                directory: FileSystemItem,
-            ): FileSystemItem | null => {
-                if (directory.type === "directory" && directory.children) {
+        (dirId: string, newDirName: string, sendToSocket: boolean = true): boolean => {
+            const renameInDirectory = (directory: FileSystemItem): FileSystemItem | null => {
+                if (directory.type === 'directory' && directory.children) {
                     // Check if a directory with the new name already exists
                     const isNameTaken = directory.children.some(
-                        (item) =>
-                            item.type === "directory" &&
-                            item.name === newDirName &&
-                            item.id !== dirId,
+                        (item) => item.type === 'directory' && item.name === newDirName && item.id !== dirId,
                     )
 
                     if (isNameTaken) {
@@ -224,12 +175,10 @@ function FileContextProvider({ children }: { children: ReactNode }) {
                                     ...item,
                                     name: newDirName,
                                 }
-                            } else if (item.type === "directory") {
+                            } else if (item.type === 'directory') {
                                 // Recursively update nested directories
                                 const updatedNestedDir = renameInDirectory(item)
-                                return updatedNestedDir !== null
-                                    ? updatedNestedDir
-                                    : item
+                                return updatedNestedDir !== null ? updatedNestedDir : item
                             } else {
                                 return item
                             }
@@ -261,10 +210,8 @@ function FileContextProvider({ children }: { children: ReactNode }) {
 
     const deleteDirectory = useCallback(
         (dirId: string, sendToSocket: boolean = true) => {
-            const deleteFromDirectory = (
-                directory: FileSystemItem,
-            ): FileSystemItem | null => {
-                if (directory.type === "directory" && directory.id === dirId) {
+            const deleteFromDirectory = (directory: FileSystemItem): FileSystemItem | null => {
+                if (directory.type === 'directory' && directory.id === dirId) {
                     // If the current directory matches the one to delete, return null (remove it)
                     return null
                 } else if (directory.children) {
@@ -282,9 +229,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
                 }
             }
 
-            setFileStructure(
-                (prevFileStructure) => deleteFromDirectory(prevFileStructure)!,
-            )
+            setFileStructure((prevFileStructure) => deleteFromDirectory(prevFileStructure)!)
 
             if (!sendToSocket) return
             socket.emit(SocketEvent.DIRECTORY_DELETED, { dirId })
@@ -296,7 +241,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
         const file = getFileById(fileStructure, fileId)
 
         if (file) {
-            updateFileContent(activeFile?.id || "", activeFile?.content || "") // Save the content of the previously active file
+            updateFileContent(activeFile?.id || '', activeFile?.content || '') // Save the content of the previously active file
 
             // Add the file to openFiles if it's not already open
             if (!openFiles.some((file) => file.id === fileId)) {
@@ -309,7 +254,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
                     if (file.id === activeFile?.id) {
                         return {
                             ...file,
-                            content: activeFile.content || "",
+                            content: activeFile.content || '',
                         }
                     } else {
                         return file
@@ -325,7 +270,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
         // Set the active file to next file if there is one
         if (fileId === activeFile?.id) {
             // Save the content of the active file before closing
-            updateFileContent(activeFile.id, activeFile.content || "")
+            updateFileContent(activeFile.id, activeFile.content || '')
             const fileIndex = openFiles.findIndex((file) => file.id === fileId)
 
             if (fileIndex !== -1 && openFiles.length > 1) {
@@ -340,32 +285,26 @@ function FileContextProvider({ children }: { children: ReactNode }) {
         }
 
         // Remove the file from openFiles
-        setOpenFiles((prevOpenFiles) =>
-            prevOpenFiles.filter((openFile) => openFile.id !== fileId),
-        )
+        setOpenFiles((prevOpenFiles) => prevOpenFiles.filter((openFile) => openFile.id !== fileId))
     }
 
     const createFile = useCallback(
-        (
-            parentDirId: string,
-            file: FileName | FileSystemItem,
-            sendToSocket: boolean = true,
-        ): Id => {
+        (parentDirId: string, file: FileName | FileSystemItem, sendToSocket: boolean = true): Id => {
             // Check if file with same name already exists
             let num = 1
 
             if (!parentDirId) parentDirId = fileStructure.id
 
             const parentDir = findParentDirectory(fileStructure, parentDirId)
-            if (!parentDir) throw new Error("Parent directory not found")
+            if (!parentDir) throw new Error('Parent directory not found')
 
             let newFile: FileSystemItem
 
-            if (typeof file === "string") {
+            if (typeof file === 'string') {
                 let name = file
                 let fileExists = isFileExist(parentDir, name)
                 while (fileExists) {
-                    name = `${name.split(".")[0]}(${num}).${name.split(".")[1]}`
+                    name = `${name.split('.')[0]}(${num}).${name.split('.')[1]}`
                     fileExists = isFileExist(parentDir, name)
                     num++
                 }
@@ -373,16 +312,14 @@ function FileContextProvider({ children }: { children: ReactNode }) {
                 newFile = {
                     id: uuidv4(),
                     name,
-                    type: "file",
-                    content: "",
+                    type: 'file',
+                    content: '',
                 }
             } else {
                 newFile = file
             }
 
-            const updateDirectory = (
-                directory: FileSystemItem,
-            ): FileSystemItem => {
+            const updateDirectory = (directory: FileSystemItem): FileSystemItem => {
                 if (directory.id === parentDir.id) {
                     // If directory matches parentDir, return updated directory with new file
                     return {
@@ -403,9 +340,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
             }
 
             // Update fileStructure with the updated parentDir
-            setFileStructure((prevFileStructure) =>
-                updateDirectory(prevFileStructure),
-            )
+            setFileStructure((prevFileStructure) => updateDirectory(prevFileStructure))
 
             // Add the new file to openFiles
             setOpenFiles((prevOpenFiles) => [...prevOpenFiles, newFile])
@@ -428,7 +363,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
         (fileId: string, newContent: string) => {
             // Recursive function to find and update the file
             const updateFile = (directory: FileSystemItem): FileSystemItem => {
-                if (directory.type === "file" && directory.id === fileId) {
+                if (directory.type === 'file' && directory.id === fileId) {
                     // If the current item is the file to update, return updated file
                     return {
                         ...directory,
@@ -447,9 +382,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
             }
 
             // Update fileStructure with the updated file content
-            setFileStructure((prevFileStructure) =>
-                updateFile(prevFileStructure),
-            )
+            setFileStructure((prevFileStructure) => updateFile(prevFileStructure))
 
             // Update openFiles if the file is open
             if (openFiles.some((file) => file.id === fileId)) {
@@ -471,19 +404,13 @@ function FileContextProvider({ children }: { children: ReactNode }) {
     )
 
     const renameFile = useCallback(
-        (
-            fileId: string,
-            newName: string,
-            sendToSocket: boolean = true,
-        ): boolean => {
-            const renameInDirectory = (
-                directory: FileSystemItem,
-            ): FileSystemItem => {
-                if (directory.type === "directory" && directory.children) {
+        (fileId: string, newName: string, sendToSocket: boolean = true): boolean => {
+            const renameInDirectory = (directory: FileSystemItem): FileSystemItem => {
+                if (directory.type === 'directory' && directory.children) {
                     return {
                         ...directory,
                         children: directory.children.map((item) => {
-                            if (item.type === "file" && item.id === fileId) {
+                            if (item.type === 'file' && item.id === fileId) {
                                 return {
                                     ...item,
                                     name: newName,
@@ -498,9 +425,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
                 }
             }
 
-            setFileStructure((prevFileStructure) =>
-                renameInDirectory(prevFileStructure),
-            )
+            setFileStructure((prevFileStructure) => renameInDirectory(prevFileStructure))
 
             // Update Open Files
             setOpenFiles((prevOpenFiles) =>
@@ -544,14 +469,12 @@ function FileContextProvider({ children }: { children: ReactNode }) {
     const deleteFile = useCallback(
         (fileId: string, sendToSocket: boolean = true) => {
             // Recursive function to find and delete the file in nested directories
-            const deleteFileFromDirectory = (
-                directory: FileSystemItem,
-            ): FileSystemItem => {
-                if (directory.type === "directory" && directory.children) {
+            const deleteFileFromDirectory = (directory: FileSystemItem): FileSystemItem => {
+                if (directory.type === 'directory' && directory.children) {
                     const updatedChildren = directory.children
                         .map((child) => {
                             // Recursively process directories
-                            if (child.type === "directory") {
+                            if (child.type === 'directory') {
                                 return deleteFileFromDirectory(child)
                             }
                             // Filter out the file with matching id
@@ -574,15 +497,11 @@ function FileContextProvider({ children }: { children: ReactNode }) {
             }
 
             // Update fileStructure with the updated directory structure
-            setFileStructure((prevFileStructure) =>
-                deleteFileFromDirectory(prevFileStructure),
-            )
+            setFileStructure((prevFileStructure) => deleteFileFromDirectory(prevFileStructure))
 
             // Remove the file from openFiles
             if (openFiles.some((file) => file.id === fileId)) {
-                setOpenFiles((prevOpenFiles) =>
-                    prevOpenFiles.filter((file) => file.id !== fileId),
-                )
+                setOpenFiles((prevOpenFiles) => prevOpenFiles.filter((file) => file.id !== fileId))
             }
 
             // Set the active file to null if it's the file being deleted
@@ -590,7 +509,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
                 setActiveFile(null)
             }
 
-            toast.success("File deleted successfully")
+            toast.success('File deleted successfully')
 
             if (!sendToSocket) return
             socket.emit(SocketEvent.FILE_DELETED, { fileId })
@@ -601,16 +520,12 @@ function FileContextProvider({ children }: { children: ReactNode }) {
     const downloadFilesAndFolders = () => {
         const zip = new JSZip()
 
-        const downloadRecursive = (
-            item: FileSystemItem,
-            parentPath: string = "",
-        ) => {
-            const currentPath =
-                parentPath + item.name + (item.type === "directory" ? "/" : "")
+        const downloadRecursive = (item: FileSystemItem, parentPath: string = '') => {
+            const currentPath = parentPath + item.name + (item.type === 'directory' ? '/' : '')
 
-            if (item.type === "file") {
-                zip.file(currentPath, item.content || "") // Add file to zip
-            } else if (item.type === "directory" && item.children) {
+            if (item.type === 'file') {
+                zip.file(currentPath, item.content || '') // Add file to zip
+            } else if (item.type === 'directory' && item.children) {
                 for (const child of item.children) {
                     downloadRecursive(child, currentPath) // Recursively process children
                 }
@@ -618,15 +533,15 @@ function FileContextProvider({ children }: { children: ReactNode }) {
         }
 
         // Start downloading from the children of the root directory
-        if (fileStructure.type === "directory" && fileStructure.children) {
+        if (fileStructure.type === 'directory' && fileStructure.children) {
             for (const child of fileStructure.children) {
                 downloadRecursive(child)
             }
         }
 
         // Generate and save zip file
-        zip.generateAsync({ type: "blob" }).then((content) => {
-            saveAs(content, "download.zip")
+        zip.generateAsync({ type: 'blob' }).then((content) => {
+            saveAs(content, 'download.zip')
         })
     }
 
@@ -671,13 +586,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
     )
 
     const handleDirCreated = useCallback(
-        ({
-            parentDirId,
-            newDirectory,
-        }: {
-            parentDirId: Id
-            newDirectory: FileSystemItem
-        }) => {
+        ({ parentDirId, newDirectory }: { parentDirId: Id; newDirectory: FileSystemItem }) => {
             createDirectory(parentDirId, newDirectory, false)
         },
         [createDirectory],
@@ -705,13 +614,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
     )
 
     const handleFileCreated = useCallback(
-        ({
-            parentDirId,
-            newFile,
-        }: {
-            parentDirId: Id
-            newFile: FileSystemItem
-        }) => {
+        ({ parentDirId, newFile }: { parentDirId: Id; newFile: FileSystemItem }) => {
             createFile(parentDirId, newFile, false)
         },
         [createFile],

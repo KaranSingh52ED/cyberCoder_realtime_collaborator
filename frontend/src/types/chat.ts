@@ -7,9 +7,7 @@ interface ChatMessage {
 
 interface ChatContext {
     messages: ChatMessage[]
-    setMessages: (
-        messages: ChatMessage[] | ((messages: ChatMessage[]) => ChatMessage[]),
-    ) => void
+    setMessages: (messages: ChatMessage[] | ((messages: ChatMessage[]) => ChatMessage[])) => void
     isNewMessage: boolean
     setIsNewMessage: (isNewMessage: boolean) => void
     lastScrollHeight: number

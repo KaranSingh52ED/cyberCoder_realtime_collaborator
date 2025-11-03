@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
 function ConnectionStatusPage() {
     return (
@@ -15,7 +15,7 @@ const ConnectionError = () => {
     }
 
     const gotoHomePage = () => {
-        navigate("/")
+        navigate('/')
     }
 
     return (
@@ -24,16 +24,10 @@ const ConnectionError = () => {
                 Oops! Something went wrong. Please try again
             </span>
             <div className="flex flex-wrap justify-center gap-4">
-                <button
-                    className="mr-4 rounded-md bg-primary px-8 py-2 font-bold text-black"
-                    onClick={reloadPage}
-                >
+                <button className="mr-4 rounded-md bg-primary px-8 py-2 font-bold text-black" onClick={reloadPage}>
                     Try Again
                 </button>
-                <button
-                    className="rounded-md bg-primary px-8 py-2 font-bold text-black"
-                    onClick={gotoHomePage}
-                >
+                <button className="rounded-md bg-primary px-8 py-2 font-bold text-black" onClick={gotoHomePage}>
                     Go to HomePage
                 </button>
             </div>

@@ -3,24 +3,16 @@ interface FileSystemFileHandle extends FileSystemHandle {
 }
 
 interface FileSystemDirectoryHandle extends FileSystemHandle {
-    getFileHandle(
-        name: string,
-        options?: GetFileHandleOptions,
-    ): Promise<FileSystemFileHandle>
-    getDirectoryHandle(
-        name: string,
-        options?: GetDirectoryHandleOptions,
-    ): Promise<FileSystemDirectoryHandle>
+    getFileHandle(name: string, options?: GetFileHandleOptions): Promise<FileSystemFileHandle>
+    getDirectoryHandle(name: string, options?: GetDirectoryHandleOptions): Promise<FileSystemDirectoryHandle>
     removeEntry(name: string, options?: FileSystemRemoveOptions): Promise<void>
     resolve(possibleDescendant: FileSystemHandle): Promise<string[] | null>
-    entries(): AsyncIterableIterator<
-        [string, FileSystemFileHandle | FileSystemDirectoryHandle]
-        >
+    entries(): AsyncIterableIterator<[string, FileSystemFileHandle | FileSystemDirectoryHandle]>
     values(): AsyncIterableIterator<FileSystemFileHandle | FileSystemDirectoryHandle>
 }
 
 interface FileSystemHandle {
-    kind: "file" | "directory"
+    kind: 'file' | 'directory'
     name: string
 }
 

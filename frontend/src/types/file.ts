@@ -5,7 +5,7 @@ type FileContent = string
 interface FileSystemItem {
     id: string
     name: FileName
-    type: "file" | "directory"
+    type: 'file' | 'directory'
     children?: FileSystemItem[]
     content?: FileContent
     isOpen?: boolean

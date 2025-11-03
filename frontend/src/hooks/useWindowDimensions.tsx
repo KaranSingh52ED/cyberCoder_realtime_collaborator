@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 interface WindowDimensions {
     width: number
@@ -21,10 +21,10 @@ function useWindowDimensions() {
             setIsMobile(window.innerWidth < 768)
         }
 
-        window.addEventListener("resize", updateWindowDimensions)
+        window.addEventListener('resize', updateWindowDimensions)
 
         return () => {
-            window.removeEventListener("resize", updateWindowDimensions)
+            window.removeEventListener('resize', updateWindowDimensions)
         }
     }, [])
     return { ...windowDimensions, isMobile }

@@ -1,5 +1,5 @@
-import { ChangeEvent } from "react"
-import { PiCaretDownBold } from "react-icons/pi"
+import { ChangeEvent } from 'react'
+import { PiCaretDownBold } from 'react-icons/pi'
 
 interface SelectProps {
     onChange: (e: ChangeEvent<HTMLSelectElement>) => void
@@ -19,8 +19,7 @@ function Select({ onChange, value, options, title }: SelectProps) {
             >
                 {options.sort().map((option) => {
                     const value = option
-                    const name =
-                        option.charAt(0).toUpperCase() + option.slice(1)
+                    const name = option.charAt(0).toUpperCase() + option.slice(1)
 
                     return (
                         <option key={name} value={value}>
@@ -29,10 +28,7 @@ function Select({ onChange, value, options, title }: SelectProps) {
                     )
                 })}
             </select>
-            <PiCaretDownBold
-                size={16}
-                className="absolute bottom-3 right-4 z-10 text-white"
-            />
+            <PiCaretDownBold size={16} className="absolute bottom-3 right-4 z-10 text-white" />
         </div>
     )
 }

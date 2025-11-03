@@ -1,18 +1,16 @@
-import { StoreSnapshot, TLRecord } from "@tldraw/tldraw"
-import { RemoteUser, User, USER_STATUS } from "./user"
+import { StoreSnapshot, TLRecord } from '@tldraw/tldraw'
+import { RemoteUser, User, USER_STATUS } from './user'
 
 type DrawingData = StoreSnapshot<TLRecord> | null
 
 enum ACTIVITY_STATE {
-    CODING = "coding",
-    DRAWING = "drawing",
+    CODING = 'coding',
+    DRAWING = 'drawing',
 }
 
 interface AppContext {
     users: RemoteUser[]
-    setUsers: (
-        users: RemoteUser[] | ((users: RemoteUser[]) => RemoteUser[]),
-    ) => void
+    setUsers: (users: RemoteUser[] | ((users: RemoteUser[]) => RemoteUser[])) => void
     currentUser: User
     setCurrentUser: (user: User) => void
     status: USER_STATUS

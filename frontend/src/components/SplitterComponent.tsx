@@ -1,8 +1,8 @@
-import { useViews } from "@/context/ViewContext"
-import useLocalStorage from "@/hooks/useLocalStorage"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
-import { ReactNode } from "react"
-import Split from "react-split"
+import { useViews } from '@/context/ViewContext'
+import useLocalStorage from '@/hooks/useLocalStorage'
+import useWindowDimensions from '@/hooks/useWindowDimensions'
+import { ReactNode } from 'react'
+import Split from 'react-split'
 
 function SplitterComponent({ children }: { children: ReactNode }) {
     const { isSidebarOpen } = useViews()
@@ -10,15 +10,15 @@ function SplitterComponent({ children }: { children: ReactNode }) {
     const { setItem, getItem } = useLocalStorage()
 
     const getGutter = () => {
-        const gutter = document.createElement("div")
-        gutter.className = "h-full cursor-e-resizer hidden md:block"
-        gutter.style.backgroundColor = "#e1e1ffb3"
+        const gutter = document.createElement('div')
+        gutter.className = 'h-full cursor-e-resizer hidden md:block'
+        gutter.style.backgroundColor = '#e1e1ffb3'
         return gutter
     }
 
     const getSizes = () => {
         if (isMobile) return [0, width]
-        const savedSizes = getItem("editorSizes")
+        const savedSizes = getItem('editorSizes')
         let sizes = [35, 65]
         if (savedSizes) {
             sizes = JSON.parse(savedSizes)
@@ -37,12 +37,12 @@ function SplitterComponent({ children }: { children: ReactNode }) {
     }
 
     const handleGutterDrag = (sizes: number[]) => {
-        setItem("editorSizes", JSON.stringify(sizes))
+        setItem('editorSizes', JSON.stringify(sizes))
     }
 
     const getGutterStyle = () => ({
-        width: "7px",
-        display: isSidebarOpen && !isMobile ? "block" : "none",
+        width: '7px',
+        display: isSidebarOpen && !isMobile ? 'block' : 'none',
     })
 
     return (

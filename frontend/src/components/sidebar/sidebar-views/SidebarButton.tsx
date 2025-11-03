@@ -1,6 +1,6 @@
-import { useChatRoom } from "@/context/ChatContext"
-import { useViews } from "@/context/ViewContext"
-import { VIEWS } from "@/types/view"
+import { useChatRoom } from '@/context/ChatContext'
+import { useViews } from '@/context/ViewContext'
+import { VIEWS } from '@/types/view'
 
 interface ViewButtonProps {
     viewName: VIEWS
@@ -8,8 +8,7 @@ interface ViewButtonProps {
 }
 
 const ViewButton = ({ viewName, icon }: ViewButtonProps) => {
-    const { activeView, setActiveView, isSidebarOpen, setIsSidebarOpen } =
-        useViews()
+    const { activeView, setActiveView, isSidebarOpen, setIsSidebarOpen } = useViews()
     const { isNewMessage } = useChatRoom()
 
     const handleViewClick = (viewName: VIEWS) => {
@@ -22,10 +21,7 @@ const ViewButton = ({ viewName, icon }: ViewButtonProps) => {
     }
 
     return (
-        <button
-            onClick={() => handleViewClick(viewName)}
-            className="relative flex items-center justify-center"
-        >
+        <button onClick={() => handleViewClick(viewName)} className="relative flex items-center justify-center">
             {icon}
             {/* Show dot for new message in chat View Button */}
             {viewName === VIEWS.CHATS && isNewMessage && (

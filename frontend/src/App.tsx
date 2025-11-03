@@ -1,9 +1,13 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
-import GitHubCorner from "./components/GitHubCorner"
-import Toast from "./components/toast/Toast"
-import EditorPage from "./pages/EditorPage"
-import HomePage from "./pages/HomePage"
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import GitHubCorner from './components/GitHubCorner'
+import Toast from './components/toast/Toast'
+import EditorPage from './pages/EditorPage'
+import HomePage from './pages/HomePage'
 
+/**
+ * Main application component
+ * Handles routing and global UI components
+ */
 const App = () => {
     return (
         <>
@@ -13,7 +17,7 @@ const App = () => {
                     <Route path="/editor/:roomId" element={<EditorPage />} />
                 </Routes>
             </Router>
-            <Toast /> {/* Toast component from react-hot-toast */}
+            <Toast />
             <GitHubCorner />
         </>
     )

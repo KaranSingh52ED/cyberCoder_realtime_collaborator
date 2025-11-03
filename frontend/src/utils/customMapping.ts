@@ -1,6 +1,6 @@
 const customMapping: { [key: string]: string } = {
-    php: "php",
-    cs: "csharp",
+    php: 'php',
+    cs: 'csharp',
     // Maybe add more languages here
 }
 

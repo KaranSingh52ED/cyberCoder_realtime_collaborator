@@ -1,16 +1,16 @@
-import { useFileSystem } from "@/context/FileContext"
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react"
-import toast from "react-hot-toast"
+import { useFileSystem } from '@/context/FileContext'
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react'
+import toast from 'react-hot-toast'
 
 interface RenameViewProps {
     id: string
     preName: string
-    type: "file" | "directory"
+    type: 'file' | 'directory'
     setEditing: (isEditing: boolean) => void
 }
 
 function RenameView({ id, preName, setEditing, type }: RenameViewProps) {
-    const [name, setName] = useState<string>(preName || "")
+    const [name, setName] = useState<string>(preName || '')
     const { renameFile, openFile, renameDirectory } = useFileSystem()
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -20,21 +20,16 @@ function RenameView({ id, preName, setEditing, type }: RenameViewProps) {
 
         const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1)
 
-        if (name === "") {
+        if (name === '') {
             toast.error(`${capitalizedType} name cannot be empty`)
         } else if (name.length > 25) {
-            toast.error(
-                `${capitalizedType} name cannot be longer than 25 characters`,
-            )
+            toast.error(`${capitalizedType} name cannot be longer than 25 characters`)
         } else if (name === preName) {
             toast.error(`${capitalizedType} name cannot be the same as before`)
         } else {
-            const isRenamed =
-                type === "directory"
-                    ? renameDirectory(id, name)
-                    : renameFile(id, name)
+            const isRenamed = type === 'directory' ? renameDirectory(id, name) : renameFile(id, name)
 
-            if (isRenamed && type === "file") {
+            if (isRenamed && type === 'file') {
                 openFile(id)
             }
             if (!isRenamed) {
@@ -47,9 +42,9 @@ function RenameView({ id, preName, setEditing, type }: RenameViewProps) {
 
     const handleFormKeyDown = useCallback(
         (e: KeyboardEvent) => {
-            if (e.key === "Enter") {
+            if (e.key === 'Enter') {
                 formRef.current?.requestSubmit()
-            } else if (e.key === "Escape") {
+            } else if (e.key === 'Escape') {
                 setEditing(false)
             }
         },
@@ -75,24 +70,20 @@ function RenameView({ id, preName, setEditing, type }: RenameViewProps) {
 
         formNode.focus()
 
-        formNode.addEventListener("keydown", handleFormKeyDown)
-        document.addEventListener("keydown", handleDocumentEvent)
-        document.addEventListener("click", handleDocumentEvent)
+        formNode.addEventListener('keydown', handleFormKeyDown)
+        document.addEventListener('keydown', handleDocumentEvent)
+        document.addEventListener('click', handleDocumentEvent)
 
         return () => {
-            formNode.removeEventListener("keydown", handleFormKeyDown)
-            document.removeEventListener("keydown", handleDocumentEvent)
-            document.removeEventListener("click", handleDocumentEvent)
+            formNode.removeEventListener('keydown', handleFormKeyDown)
+            document.removeEventListener('keydown', handleDocumentEvent)
+            document.removeEventListener('click', handleDocumentEvent)
         }
     }, [handleDocumentEvent, handleFormKeyDown, setEditing])
 
     return (
         <div className="rounded-md">
-            <form
-                onSubmit={handleSubmit}
-                ref={formRef}
-                className="flex w-full items-center gap-2 rounded-md"
-            >
+            <form onSubmit={handleSubmit} ref={formRef} className="flex w-full items-center gap-2 rounded-md">
                 <input
                     type="text"
                     className="w-full flex-grow rounded-sm bg-dark px-2 text-base text-white outline-none"

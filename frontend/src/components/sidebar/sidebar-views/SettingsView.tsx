@@ -1,12 +1,15 @@
-import Select from "@/components/common/Select"
-import { useSettings } from "@/context/SettingContext"
-import useResponsive from "@/hooks/useResponsive"
-import { editorFonts } from "@/resources/Fonts"
-import { editorThemes } from "@/resources/Themes"
-import { langNames } from "@uiw/codemirror-extensions-langs"
-import { ChangeEvent, useEffect } from "react"
+import Select from '@/components/common/Select'
+import { useSettings } from '@/context/SettingContext'
+import useResponsive from '@/hooks/useResponsive'
+import { editorFonts } from '@/resources/Fonts'
+import { editorThemes } from '@/resources/Themes'
+import { langNames } from '@uiw/codemirror-extensions-langs'
+import { ChangeEvent, useEffect, useState } from 'react'
+import CodeSnippetsModal from '@/components/common/CodeSnippetsModal'
+import { HiSparkles } from 'react-icons/hi2'
 
 function SettingsView() {
+    const [showSnippets, setShowSnippets] = useState(false)
     const {
         theme,
         setTheme,
@@ -22,32 +25,22 @@ function SettingsView() {
     } = useSettings()
     const { viewHeight } = useResponsive()
 
-    const handleFontFamilyChange = (e: ChangeEvent<HTMLSelectElement>) =>
-        setFontFamily(e.target.value)
-    const handleThemeChange = (e: ChangeEvent<HTMLSelectElement>) =>
-        setTheme(e.target.value)
-    const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) =>
-        setLanguage(e.target.value)
-    const handleFontSizeChange = (e: ChangeEvent<HTMLSelectElement>) =>
-        setFontSize(parseInt(e.target.value))
-    const handleShowGitHubCornerChange = (e: ChangeEvent<HTMLInputElement>) =>
-        setShowGitHubCorner(e.target.checked)
+    const handleFontFamilyChange = (e: ChangeEvent<HTMLSelectElement>) => setFontFamily(e.target.value)
+    const handleThemeChange = (e: ChangeEvent<HTMLSelectElement>) => setTheme(e.target.value)
+    const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => setLanguage(e.target.value)
+    const handleFontSizeChange = (e: ChangeEvent<HTMLSelectElement>) => setFontSize(parseInt(e.target.value))
+    const handleShowGitHubCornerChange = (e: ChangeEvent<HTMLInputElement>) => setShowGitHubCorner(e.target.checked)
 
     useEffect(() => {
         // Set editor font family
-        const editor = document.querySelector(
-            ".cm-editor > .cm-scroller",
-        ) as HTMLElement
+        const editor = document.querySelector('.cm-editor > .cm-scroller') as HTMLElement
         if (editor !== null) {
             editor.style.fontFamily = `${fontFamily}, monospace`
         }
     }, [fontFamily])
 
     return (
-        <div
-            className="flex flex-col items-center gap-2 p-4"
-            style={{ height: viewHeight }}
-        >
+        <div className="flex flex-col items-center gap-2 p-4" style={{ height: viewHeight }}>
             <h1 className="view-title">Settings</h1>
             {/* Choose Font Family option */}
             <div className="flex w-full items-end gap-2">
@@ -74,19 +67,9 @@ function SettingsView() {
                 </select>
             </div>
             {/* Choose theme option */}
-            <Select
-                onChange={handleThemeChange}
-                value={theme}
-                options={Object.keys(editorThemes)}
-                title="Theme"
-            />
+            <Select onChange={handleThemeChange} value={theme} options={Object.keys(editorThemes)} title="Theme" />
             {/* Choose language option */}
-            <Select
-                onChange={handleLanguageChange}
-                value={language}
-                options={langNames}
-                title="Language"
-            />
+            <Select onChange={handleLanguageChange} value={language} options={langNames} title="Language" />
             {/* Show GitHub corner option */}
             <div className="mt-4 flex w-full items-center justify-between">
                 <label>Show github corner</label>
@@ -100,12 +83,23 @@ function SettingsView() {
                     <div className="peer h-6 w-12 rounded-full bg-darkHover outline-none duration-100 after:absolute after:left-1 after:top-1 after:flex after:h-4 after:w-4 after:items-center after:justify-center after:rounded-full after:bg-white after:font-bold after:outline-none after:duration-500 peer-checked:after:translate-x-6 peer-checked:after:border-white peer-focus:outline-none"></div>
                 </label>
             </div>
+            
+            <button
+                onClick={() => setShowSnippets(true)}
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-white transition-colors hover:bg-white/10"
+            >
+                <HiSparkles className="h-4 w-4" />
+                Code Snippets Library
+            </button>
+
             <button
                 className="mt-auto w-full rounded-md border-none bg-darkHover px-4 py-2 text-white outline-none"
                 onClick={resetSettings}
             >
                 Reset to default
             </button>
+
+            <CodeSnippetsModal isOpen={showSnippets} onClose={() => setShowSnippets(false)} />
         </div>
     )
 }

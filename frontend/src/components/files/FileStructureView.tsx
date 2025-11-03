@@ -1,44 +1,36 @@
-import { useAppContext } from "@/context/AppContext"
-import { useFileSystem } from "@/context/FileContext"
-import { useViews } from "@/context/ViewContext"
-import { useContextMenu } from "@/hooks/useContextMenu"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
-import { ACTIVITY_STATE } from "@/types/app"
-import { FileSystemItem, Id } from "@/types/file"
-import { sortFileSystemItem } from "@/utils/file"
-import { getIconClassName } from "@/utils/getIconClassName"
-import { Icon } from "@iconify/react"
-import cn from "classnames"
-import { MouseEvent, useEffect, useRef, useState } from "react"
-import { AiOutlineFolder, AiOutlineFolderOpen } from "react-icons/ai"
-import { MdDelete } from "react-icons/md"
-import { PiPencilSimpleFill } from "react-icons/pi"
-import {
-    RiFileAddLine,
-    RiFolderAddLine,
-    RiFolderUploadLine,
-} from "react-icons/ri"
-import RenameView from "./RenameView"
-import useResponsive from "@/hooks/useResponsive"
+import { useAppContext } from '@/context/AppContext'
+import { useFileSystem } from '@/context/FileContext'
+import { useViews } from '@/context/ViewContext'
+import { useContextMenu } from '@/hooks/useContextMenu'
+import useWindowDimensions from '@/hooks/useWindowDimensions'
+import { ACTIVITY_STATE } from '@/types/app'
+import { FileSystemItem, Id } from '@/types/file'
+import { sortFileSystemItem } from '@/utils/file'
+import { getIconClassName } from '@/utils/getIconClassName'
+import { Icon } from '@iconify/react'
+import cn from 'classnames'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { AiOutlineFolder, AiOutlineFolderOpen } from 'react-icons/ai'
+import { MdDelete } from 'react-icons/md'
+import { PiPencilSimpleFill } from 'react-icons/pi'
+import { RiFileAddLine, RiFolderAddLine, RiFolderUploadLine } from 'react-icons/ri'
+import RenameView from './RenameView'
+import useResponsive from '@/hooks/useResponsive'
 
 function FileStructureView() {
-    const { fileStructure, createFile, createDirectory, collapseDirectories } =
-        useFileSystem()
+    const { fileStructure, createFile, createDirectory, collapseDirectories } = useFileSystem()
     const explorerRef = useRef<HTMLDivElement | null>(null)
     const [selectedDirId, setSelectedDirId] = useState<Id | null>(null)
     const { minHeightReached } = useResponsive()
 
     const handleClickOutside = (e: MouseEvent) => {
-        if (
-            explorerRef.current &&
-            !explorerRef.current.contains(e.target as Node)
-        ) {
+        if (explorerRef.current && !explorerRef.current.contains(e.target as Node)) {
             setSelectedDirId(fileStructure.id)
         }
     }
 
     const handleCreateFile = () => {
-        const fileName = prompt("Enter file name")
+        const fileName = prompt('Enter file name')
         if (fileName) {
             const parentDirId: Id = selectedDirId || fileStructure.id
             createFile(parentDirId, fileName)
@@ -46,7 +38,7 @@ function FileStructureView() {
     }
 
     const handleCreateDirectory = () => {
-        const dirName = prompt("Enter directory name")
+        const dirName = prompt('Enter directory name')
         if (dirName) {
             const parentDirId: Id = selectedDirId || fileStructure.id
             createDirectory(parentDirId, dirName)
@@ -84,35 +76,22 @@ function FileStructureView() {
                 </div>
             </div>
             <div
-                className={cn(
-                    "min-h-[200px] flex-grow overflow-auto pr-2 sm:min-h-0",
-                    {
-                        "h-[calc(80vh-170px)]": !minHeightReached,
-                        "h-[85vh]": minHeightReached,
-                    },
-                )}
+                className={cn('min-h-[200px] flex-grow overflow-auto pr-2 sm:min-h-0', {
+                    'h-[calc(80vh-170px)]': !minHeightReached,
+                    'h-[85vh]': minHeightReached,
+                })}
                 ref={explorerRef}
             >
                 {sortedFileStructure.children &&
                     sortedFileStructure.children.map((item) => (
-                        <Directory
-                            key={item.id}
-                            item={item}
-                            setSelectedDirId={setSelectedDirId}
-                        />
+                        <Directory key={item.id} item={item} setSelectedDirId={setSelectedDirId} />
                     ))}
             </div>
         </div>
     )
 }
 
-function Directory({
-    item,
-    setSelectedDirId,
-}: {
-    item: FileSystemItem
-    setSelectedDirId: (id: Id) => void
-}) {
+function Directory({ item, setSelectedDirId }: { item: FileSystemItem; setSelectedDirId: (id: Id) => void }) {
     const [isEditing, setEditing] = useState<boolean>(false)
     const dirRef = useRef<HTMLDivElement | null>(null)
     const { coords, menuOpen, setMenuOpen } = useContextMenu({
@@ -134,9 +113,7 @@ function Directory({
     const handleDeleteDirectory = (e: MouseEvent, id: Id) => {
         e.stopPropagation()
         setMenuOpen(false)
-        const isConfirmed = confirm(
-            `Are you sure you want to delete directory?`,
-        )
+        const isConfirmed = confirm(`Are you sure you want to delete directory?`)
         if (isConfirmed) {
             deleteDirectory(id)
         }
@@ -152,19 +129,19 @@ function Directory({
 
         const handleF2 = (e: KeyboardEvent) => {
             e.stopPropagation()
-            if (e.key === "F2") {
+            if (e.key === 'F2') {
                 setEditing(true)
             }
         }
 
-        dirNode.addEventListener("keydown", handleF2)
+        dirNode.addEventListener('keydown', handleF2)
 
         return () => {
-            dirNode.removeEventListener("keydown", handleF2)
+            dirNode.removeEventListener('keydown', handleF2)
         }
     }, [])
 
-    if (item.type === "file") {
+    if (item.type === 'file') {
         return <File item={item} setSelectedDirId={setSelectedDirId} />
     }
 
@@ -181,35 +158,17 @@ function Directory({
                     <AiOutlineFolder size={24} className="mr-2 min-w-fit" />
                 )}
                 {isEditing ? (
-                    <RenameView
-                        id={item.id}
-                        preName={item.name}
-                        type="directory"
-                        setEditing={setEditing}
-                    />
+                    <RenameView id={item.id} preName={item.name} type="directory" setEditing={setEditing} />
                 ) : (
-                    <p
-                        className="flex-grow cursor-pointer overflow-hidden truncate"
-                        title={item.name}
-                    >
+                    <p className="flex-grow cursor-pointer overflow-hidden truncate" title={item.name}>
                         {item.name}
                     </p>
                 )}
             </div>
-            <div
-                className={cn(
-                    { hidden: !item.isOpen },
-                    { block: item.isOpen },
-                    { "pl-4": item.name !== "root" },
-                )}
-            >
+            <div className={cn({ hidden: !item.isOpen }, { block: item.isOpen }, { 'pl-4': item.name !== 'root' })}>
                 {item.children &&
                     item.children.map((item) => (
-                        <Directory
-                            key={item.id}
-                            item={item}
-                            setSelectedDirId={setSelectedDirId}
-                        />
+                        <Directory key={item.id} item={item} setSelectedDirId={setSelectedDirId} />
                     ))}
             </div>
 
@@ -226,13 +185,7 @@ function Directory({
     )
 }
 
-const File = ({
-    item,
-    setSelectedDirId,
-}: {
-    item: FileSystemItem
-    setSelectedDirId: (id: Id) => void
-}) => {
+const File = ({ item, setSelectedDirId }: { item: FileSystemItem; setSelectedDirId: (id: Id) => void }) => {
     const { deleteFile, openFile } = useFileSystem()
     const [isEditing, setEditing] = useState<boolean>(false)
     const { setIsSidebarOpen } = useViews()
@@ -281,15 +234,15 @@ const File = ({
 
         const handleF2 = (e: KeyboardEvent) => {
             e.stopPropagation()
-            if (e.key === "F2") {
+            if (e.key === 'F2') {
                 setEditing(true)
             }
         }
 
-        fileNode.addEventListener("keydown", handleF2)
+        fileNode.addEventListener('keydown', handleF2)
 
         return () => {
-            fileNode.removeEventListener("keydown", handleF2)
+            fileNode.removeEventListener('keydown', handleF2)
         }
     }, [])
 
@@ -299,23 +252,11 @@ const File = ({
             onClick={() => handleFileClick(item.id)}
             ref={fileRef}
         >
-            <Icon
-                icon={getIconClassName(item.name)}
-                fontSize={22}
-                className="mr-2 min-w-fit"
-            />
+            <Icon icon={getIconClassName(item.name)} fontSize={22} className="mr-2 min-w-fit" />
             {isEditing ? (
-                <RenameView
-                    id={item.id}
-                    preName={item.name}
-                    type="file"
-                    setEditing={setEditing}
-                />
+                <RenameView id={item.id} preName={item.name} type="file" setEditing={setEditing} />
             ) : (
-                <p
-                    className="flex-grow cursor-pointer overflow-hidden truncate"
-                    title={item.name}
-                >
+                <p className="flex-grow cursor-pointer overflow-hidden truncate" title={item.name}>
                     {item.name}
                 </p>
             )}

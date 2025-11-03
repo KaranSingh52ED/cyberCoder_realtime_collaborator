@@ -3,10 +3,10 @@ export function formatDate(timestamp: string) {
 
     // Get hours and minutes
     let hours = date.getHours()
-    const minutes = String(date.getMinutes()).padStart(2, "0")
+    const minutes = String(date.getMinutes()).padStart(2, '0')
 
     // Determine AM or PM
-    const amOrPm = hours >= 12 ? "PM" : "AM"
+    const amOrPm = hours >= 12 ? 'PM' : 'AM'
 
     // Convert to 12-hour format
     hours = hours % 12

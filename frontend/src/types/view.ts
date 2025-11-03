@@ -1,9 +1,9 @@
 enum VIEWS {
-    FILES = "FILES",
-    CHATS = "CHATS",
-    CLIENTS = "CLIENTS",
-    RUN = "RUN",
-    SETTINGS = "SETTINGS",
+    FILES = 'FILES',
+    CHATS = 'CHATS',
+    CLIENTS = 'CLIENTS',
+    RUN = 'RUN',
+    SETTINGS = 'SETTINGS',
 }
 
 interface ViewContext {

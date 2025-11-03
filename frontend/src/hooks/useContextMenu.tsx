@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
-export const useContextMenu = ({
-    ref,
-}: {
-    ref: React.RefObject<HTMLDivElement>
-}) => {
+export const useContextMenu = ({ ref }: { ref: React.RefObject<HTMLDivElement> }) => {
     const [menuOpen, setMenuOpen] = useState(false)
     const [coords, setCoords] = useState({
         x: 0,
@@ -41,16 +37,16 @@ export const useContextMenu = ({
             })
         }
 
-        itemRef.addEventListener("contextmenu", handleItemContextMenu)
+        itemRef.addEventListener('contextmenu', handleItemContextMenu)
 
-        document.addEventListener("click", closeMenu)
-        document.addEventListener("contextmenu", handleRightClick)
+        document.addEventListener('click', closeMenu)
+        document.addEventListener('contextmenu', handleRightClick)
 
         return () => {
-            itemRef.removeEventListener("contextmenu", handleItemContextMenu)
+            itemRef.removeEventListener('contextmenu', handleItemContextMenu)
 
-            document.removeEventListener("click", closeMenu)
-            document.removeEventListener("contextmenu", handleRightClick)
+            document.removeEventListener('click', closeMenu)
+            document.removeEventListener('contextmenu', handleRightClick)
         }
     }, [ref])
 

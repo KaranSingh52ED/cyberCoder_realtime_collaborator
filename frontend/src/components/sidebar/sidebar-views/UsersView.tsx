@@ -1,13 +1,13 @@
-import Users from "@/components/common/Users"
-import { useAppContext } from "@/context/AppContext"
-import { useSocket } from "@/context/SocketContext"
-import useResponsive from "@/hooks/useResponsive"
-import { USER_STATUS } from "@/types/user"
-import toast from "react-hot-toast"
-import { GoSignOut } from "react-icons/go"
-import { IoShareOutline } from "react-icons/io5"
-import { LuCopy } from "react-icons/lu"
-import { useNavigate } from "react-router-dom"
+import Users from '@/components/common/Users'
+import { useAppContext } from '@/context/AppContext'
+import { useSocket } from '@/context/SocketContext'
+import useResponsive from '@/hooks/useResponsive'
+import { USER_STATUS } from '@/types/user'
+import toast from 'react-hot-toast'
+import { GoSignOut } from 'react-icons/go'
+import { IoShareOutline } from 'react-icons/io5'
+import { LuCopy } from 'react-icons/lu'
+import { useNavigate } from 'react-router-dom'
 
 function UsersView() {
     const navigate = useNavigate()
@@ -19,9 +19,9 @@ function UsersView() {
         const url = window.location.href
         try {
             await navigator.clipboard.writeText(url)
-            toast.success("URL copied to clipboard")
+            toast.success('URL copied to clipboard')
         } catch (error) {
-            toast.error("Unable to copy URL to clipboard")
+            toast.error('Unable to copy URL to clipboard')
             console.log(error)
         }
     }
@@ -31,7 +31,7 @@ function UsersView() {
         try {
             await navigator.share({ url })
         } catch (error) {
-            toast.error("Unable to share URL")
+            toast.error('Unable to share URL')
             console.log(error)
         }
     }
@@ -39,7 +39,7 @@ function UsersView() {
     const leaveRoom = () => {
         socket.disconnect()
         setStatus(USER_STATUS.DISCONNECTED)
-        navigate("/", {
+        navigate('/', {
             replace: true,
         })
     }

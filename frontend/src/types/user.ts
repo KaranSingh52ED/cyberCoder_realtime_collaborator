@@ -1,6 +1,6 @@
 enum USER_CONNECTION_STATUS {
-    OFFLINE = "offline",
-    ONLINE = "online",
+    OFFLINE = 'offline',
+    ONLINE = 'online',
 }
 
 interface User {
@@ -17,12 +17,12 @@ interface RemoteUser extends User {
 }
 
 enum USER_STATUS {
-    INITIAL = "initial",
-    CONNECTING = "connecting",
-    ATTEMPTING_JOIN = "attempting-join",
-    JOINED = "joined",
-    CONNECTION_FAILED = "connection-failed",
-    DISCONNECTED = "disconnected",
+    INITIAL = 'initial',
+    CONNECTING = 'connecting',
+    ATTEMPTING_JOIN = 'attempting-join',
+    JOINED = 'joined',
+    CONNECTION_FAILED = 'connection-failed',
+    DISCONNECTED = 'disconnected',
 }
 
 export { USER_CONNECTION_STATUS, USER_STATUS, RemoteUser, User }

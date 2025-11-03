@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import useWindowDimensions from "./useWindowDimensions"
+import { useEffect, useState } from 'react'
+import useWindowDimensions from './useWindowDimensions'
 
 // This hook is used to hide sidebar and other components when keyboard is open on mobile devices and to adjust the height of the sidebar views and editor
 function useResponsive() {

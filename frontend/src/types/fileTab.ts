@@ -1,4 +1,4 @@
-import { FileSystemItem } from "./file"
+import { FileSystemItem } from './file'
 
 interface FileTabContext {
     activeFile: FileSystemItem | null
