@@ -15,9 +15,12 @@ export default {
             },
             animation: {
                 "up-down": "up-down 2s ease-in-out infinite alternate",
-            },
-            animation: {
                 rotateAndLeave: "rotateAndLeave 3s forwards",
+            },
+            animationDelay: {
+                500: "500ms",
+                1000: "1000ms",
+                1500: "1500ms",
             },
         },
     },

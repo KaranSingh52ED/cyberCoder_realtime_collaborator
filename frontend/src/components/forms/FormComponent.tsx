@@ -98,50 +98,102 @@ const FormComponent = () => {
     ])
 
     return (
-        <div className="flex w-full max-w-[90vw] flex-col items-center justify-center gap-6 rounded-[2rem] bg-gradient-to-r from-gray-800 to-gray-900 p-6 shadow-xl ring-2 ring-gray-600/50 backdrop-blur-lg sm:p-8 md:max-w-2xl md:rounded-[2.5rem] md:p-10 lg:max-w-4xl lg:gap-8 lg:p-12 xl:max-w-6xl">
-            <div className="@container flex w-full flex-col items-center gap-4 sm:gap-6 md:flex-row md:justify-between">
-                <img
-                    src={logo}
-                    alt="CyberCode Logo"
-                    className="aspect-square h-[clamp(4rem,10vw,6rem)] w-auto rounded-full object-cover shadow-lg ring-2 ring-blue-400/80 transition-all duration-300 hover:ring-blue-300"
-                />
-                <h1 className="bg-gradient-to-r from-blue-300 to-cyan-400 bg-clip-text text-[clamp(1.75rem,5vw,3rem)] font-extrabold leading-tight text-transparent">
-                    CyberCode
-                </h1>
+        <div className="flex w-full flex-col items-center justify-center gap-6">
+            {/* Logo and Title */}
+            <div className="flex w-full flex-col items-center gap-4 sm:gap-6">
+                <div className="relative">
+                    <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 opacity-30 blur-lg" />
+                    <img
+                        src={logo}
+                        alt="CyberCode Logo"
+                        className="relative aspect-square h-20 w-20 rounded-full object-cover shadow-2xl ring-2 ring-purple-400/50 transition-all duration-300 hover:scale-110 hover:ring-cyan-400/50 sm:h-24 sm:w-24"
+                    />
+                </div>
+                <h2 className="bg-gradient-to-r from-purple-300 via-blue-300 to-cyan-300 bg-clip-text text-3xl font-extrabold leading-tight text-transparent sm:text-4xl">
+                    Join Your Workspace
+                </h2>
+                <p className="text-center text-sm text-gray-400 sm:text-base">
+                    Enter your details to start coding together
+                </p>
             </div>
 
-            <form onSubmit={joinRoom} className="w-full space-y-4 sm:space-y-6">
-                <input
-                    type="text"
-                    name="roomId"
-                    placeholder="Enter Room ID"
-                    className="w-full rounded-xl border-2 border-blue-400/20 bg-gray-700/90 px-4 py-3 text-base backdrop-blur-sm transition-all placeholder:text-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-300/50 sm:text-lg md:py-4 lg:text-xl"
-                    onChange={handleInputChanges}
-                    value={currentUser.roomId}
-                />
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Enter Username"
-                    className="w-full rounded-xl border-2 border-blue-400/20 bg-gray-700/90 px-4 py-3 text-base backdrop-blur-sm transition-all placeholder:text-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-300/50 sm:text-lg md:py-4 lg:text-xl"
-                    onChange={handleInputChanges}
-                    value={currentUser.username}
-                    ref={usernameRef}
-                />
+            {/* Form */}
+            <form onSubmit={joinRoom} className="w-full space-y-4">
+                <div className="space-y-1">
+                    <label className="ml-1 text-xs font-medium text-gray-400 sm:text-sm">
+                        Room ID
+                    </label>
+                    <input
+                        type="text"
+                        name="roomId"
+                        placeholder="Enter Room ID"
+                        className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3.5 text-base text-white placeholder:text-gray-500 backdrop-blur-sm transition-all duration-200 focus:border-purple-400/50 focus:bg-white/15 focus:outline-none focus:ring-2 focus:ring-purple-500/30 sm:text-lg"
+                        onChange={handleInputChanges}
+                        value={currentUser.roomId}
+                    />
+                </div>
+                <div className="space-y-1">
+                    <label className="ml-1 text-xs font-medium text-gray-400 sm:text-sm">
+                        Username
+                    </label>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Enter your username"
+                        className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3.5 text-base text-white placeholder:text-gray-500 backdrop-blur-sm transition-all duration-200 focus:border-purple-400/50 focus:bg-white/15 focus:outline-none focus:ring-2 focus:ring-purple-500/30 sm:text-lg"
+                        onChange={handleInputChanges}
+                        value={currentUser.username}
+                        ref={usernameRef}
+                    />
+                </div>
                 <button
                     type="submit"
-                    className="w-full rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 py-3 text-lg font-semibold shadow-lg ring-white/20 transition-all duration-200 hover:scale-[1.02] hover:shadow-xl focus:scale-100 focus:ring-2 sm:py-4 md:text-xl"
+                    className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 py-3.5 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-400/50 sm:py-4 sm:text-xl"
                 >
-                    Join Room
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                        <span>Join Room</span>
+                        <svg
+                            className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M13 7l5 5m0 0l-5 5m5-5H6"
+                            />
+                        </svg>
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </button>
             </form>
 
-            <button
-                className="w-full rounded-xl bg-gray-100/90 py-3 text-base font-medium text-blue-700 shadow-md ring-blue-400/50 transition-all hover:bg-gray-200 hover:text-blue-800 hover:shadow-lg focus:ring-2 sm:text-lg md:py-4 md:text-xl"
-                onClick={createNewRoomId}
-            >
-                Generate Unique Room ID
-            </button>
+            {/* Generate Room ID Button */}
+            <div className="w-full border-t border-white/10 pt-4">
+                <button
+                    className="group w-full rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-base font-medium text-gray-300 backdrop-blur-sm transition-all duration-200 hover:border-purple-400/50 hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-purple-500/30 sm:text-lg sm:py-3.5"
+                    onClick={createNewRoomId}
+                >
+                    <span className="flex items-center justify-center gap-2">
+                        <svg
+                            className="h-5 w-5 transition-transform group-hover:rotate-90"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 4v16m8-8H4"
+                            />
+                        </svg>
+                        <span>Generate Unique Room ID</span>
+                    </span>
+                </button>
+            </div>
         </div>
     )
 }

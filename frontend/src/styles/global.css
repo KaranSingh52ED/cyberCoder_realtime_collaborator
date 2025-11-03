@@ -55,6 +55,27 @@ body {
     }
 }
 
+@keyframes pulse-delayed {
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse-delayed-500 {
+    animation: pulse-delayed 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation-delay: 500ms;
+}
+
+.animate-pulse-delayed-1000 {
+    animation: pulse-delayed 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation-delay: 1000ms;
+}
+
 /* Editor */
 
 .cm-editor {
